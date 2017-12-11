@@ -1,13 +1,17 @@
 <template>
   <li>
     <div v-if="isEdited">
-      <input type="text"
-             v-model="task.content"
-             autofocus
-             v-focus
-             @keyup.esc="abort">
-      <button @click="save">Save</button>
+      <div @keyup.enter="save"
+           @keyup.esc="cancel">
+        <input type="text"
+               v-model.lazy="taskItem.content"
+               autofocus
+               v-focus>
+        <button @click="save">Save</button>
+        <button @click="cancel">Cancel</button>
+      </div>
     </div>
+
     <div v-else>
       <input type="checkbox"
              name="markCompleted"
@@ -28,22 +32,29 @@ export default {
   data () {
     return {
       isEdited: false,
-      isCompleted: false
+      isCompleted: false,
+      taskItem: {
+        id: this.task.id,
+        content: this.task.content
+      }
     }
   },
   methods: {
     remove (task) {
+      task = this.taskItem
       this.$emit('removeTask', task)
     },
     edit () {
       this.isEdited = true
-      focus()
     },
-    save () {
+    save (task) {
+      task = this.taskItem
+      this.$emit('updateTask', task)
       this.isEdited = false
     },
-    abort () {
+    cancel () {
       this.isEdited = false
+      this.taskItem.content = this.task.content
     }
   },
   // autofocus seems not to work in firefox (57)

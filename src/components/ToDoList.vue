@@ -3,6 +3,7 @@
     <form @keyup.prevent.enter="createTask">
       <input type="text"
              v-model="taskText">
+
       <button :disabled="this.taskText === ''"
               @click.prevent="createTask">Create</button>
     </form>
@@ -11,7 +12,8 @@
     <ul v-for="task in tasks"
         :key="task.id">
       <app-task :task="task"
-                @removeTask="removeTask(task)"></app-task>
+                @removeTask="removeTask"
+                @updateTask="updateTask"></app-task>
     </ul>
   </div>
 </template>
@@ -42,6 +44,13 @@ export default {
     },
     removeTask (task) {
       this.tasks = this.tasks.filter(item => item.id !== task.id)
+    },
+    updateTask (task) {
+      this.tasks.map(item => {
+        if (item.id === task.id) {
+          item.content = task.content
+        }
+      })
     }
   }
 }
