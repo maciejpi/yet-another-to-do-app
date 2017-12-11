@@ -35,7 +35,7 @@ export default {
   methods: {
     createTask () {
       if (this.taskText !== '') {
-        this.tasks.push({
+        this.tasks.unshift({
           id: Date.now(),
           content: this.taskText
         })

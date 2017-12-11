@@ -21,6 +21,7 @@
              :class="{ strike : isCompleted }"
              @dblclick="edit">{{ task.content }}</label>
       <button @click="edit">Edit</button>
+      <span>{{ task.id | toDate }}</span>
       <button @click="remove">&#10005;</button>
     </div>
   </li>
@@ -63,6 +64,15 @@ export default {
       inserted (el) {
         el.focus()
       }
+    }
+  },
+  filters: {
+    toDate (value) {
+      function formatDate (date) {
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
+      }
+      return formatDate(new Date(value))
     }
   }
 }
