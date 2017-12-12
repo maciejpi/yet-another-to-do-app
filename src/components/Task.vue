@@ -21,9 +21,9 @@
              :class="{ strike : isCompleted }"
              @dblclick="edit">{{ task.content }}</label>
       <button @click="edit">Edit</button>
-      <span>{{ task.id | toDate }}</span>
-      <button @click="remove">&#10005;</button>
     </div>
+    <span>{{ task.id | toDate }}</span>
+    <button @click="remove">&#10005;</button>
   </li>
 </template>
 
@@ -41,16 +41,14 @@ export default {
     }
   },
   methods: {
-    remove (task) {
-      task = this.taskItem
-      this.$emit('removeTask', task)
+    remove () {
+      this.$emit('removeTask', this.taskItem)
     },
     edit () {
       this.isEdited = true
     },
-    save (task) {
-      task = this.taskItem
-      this.$emit('updateTask', task)
+    save () {
+      this.taskItem.content === '' ? this.remove() : this.$emit('updateTask', this.taskItem)
       this.isEdited = false
     },
     cancel () {
