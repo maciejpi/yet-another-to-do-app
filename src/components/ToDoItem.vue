@@ -15,62 +15,51 @@
     <div v-else>
       <input type="checkbox"
              name="markCompleted"
-             id=""
-             v-model="isCompleted">
+             :checked="this.taskItem.completed"
+             @change="markCompleted">
       <label for="markCompleted"
-             :class="{ strike : isCompleted }"
-             @dblclick="edit">{{ task.content }}</label>
+             @dblclick="edit">{{ taskItem.content }}</label>
       <button @click="edit">Edit</button>
     </div>
-    <span>{{ task.id | toDate }}</span>
+    <span>{{ taskItem.id | toDate }}</span>
     <button @click="remove">&#10005;</button>
   </li>
 </template>
 
 <script>
+import { eventBus } from '../main'
+
 export default {
+  name: 'ToDoItem',
   props: ['task'],
   data () {
     return {
       isEdited: false,
-      isCompleted: false,
       taskItem: {
         id: this.task.id,
-        content: this.task.content
+        content: this.task.content,
+        completed: this.task.completed
       }
     }
   },
   methods: {
     remove () {
-      this.$emit('removeTask', this.taskItem)
+      eventBus.$emit('removeTask', this.taskItem)
     },
     edit () {
       this.isEdited = true
     },
     save () {
-      this.taskItem.content === '' ? this.remove() : this.$emit('updateTask', this.taskItem)
+      this.taskItem.content === '' ? this.remove() : eventBus.$emit('updateTask', this.taskItem)
       this.isEdited = false
     },
     cancel () {
       this.isEdited = false
       this.taskItem.content = this.task.content
-    }
-  },
-  // autofocus seems not to work in firefox (57)
-  directives: {
-    focus: {
-      inserted (el) {
-        el.focus()
-      }
-    }
-  },
-  filters: {
-    toDate (value) {
-      function formatDate (date) {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-        return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
-      }
-      return formatDate(new Date(value))
+    },
+    markCompleted () {
+      this.task.completed = true
+      eventBus.$emit('taskStatusChange', this.taskItem)
     }
   }
 }
