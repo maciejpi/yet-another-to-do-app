@@ -1,5 +1,7 @@
 <template>
-  <li>
+  <transition tag="li"
+              name="slide">
+
     <div v-if="isEdited">
       <div @keyup.enter="save"
            @keyup.esc="cancel">
@@ -21,9 +23,11 @@
              @dblclick="edit">{{ taskItem.content }}</label>
       <button @click="edit">Edit</button>
     </div>
+
     <span>{{ taskItem.id | toDate }}</span>
     <button @click="remove">&#10005;</button>
-  </li>
+
+  </transition>
 </template>
 
 <script>

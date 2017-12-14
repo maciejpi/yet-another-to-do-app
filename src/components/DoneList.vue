@@ -2,12 +2,12 @@
   <div class="tasks-list">
 
     <div>{{ !tasksList.length ? 'You haven\'t completed any tasks yet' : `${tasksList.length} task${tasksList.length === 1 ? '' : 's' } done` }}</div>
-    <button @click="deleteAll()">Delete all</button>
+    <button @click="deleteAll">Delete all</button>
 
-    <ul v-for="task in tasksList"
-        :key="task.id">
-      <done-item :task="task"></done-item>
-
+    <ul>
+      <done-item v-for="task in tasksList"
+                 :key="task.id"
+                 :task="task"></done-item>
     </ul>
   </div>
 </template>

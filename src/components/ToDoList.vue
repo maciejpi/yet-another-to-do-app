@@ -3,10 +3,10 @@
 
     <div>{{ !tasksList.length ? '' : `You have ${tasksList.length} task${tasksList.length === 1 ? '' : 's' } to do` }}</div>
 
-    <ul v-for="task in tasksList"
-        :key="task.id">
-      <to-do-item :task="task"></to-do-item>
-
+    <ul>
+      <to-do-item v-for="task in tasksList"
+                  :key="task.id"
+                  :task="task"></to-do-item>
     </ul>
   </div>
 </template>
