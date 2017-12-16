@@ -1,7 +1,5 @@
 <template>
-  <transition tag="li"
-              name="slide">
-
+  <li>
     <div v-if="isEdited">
       <div @keyup.enter="save"
            @keyup.esc="cancel">
@@ -17,7 +15,7 @@
     <div v-else>
       <input type="checkbox"
              name="markCompleted"
-             :checked="this.taskItem.completed"
+             v-model="taskItem.completed"
              @change="markCompleted">
       <label for="markCompleted"
              @dblclick="edit">{{ taskItem.content }}</label>
@@ -27,7 +25,7 @@
     <span>{{ taskItem.id | toDate }}</span>
     <button @click="remove">&#10005;</button>
 
-  </transition>
+  </li>
 </template>
 
 <script>
@@ -49,6 +47,7 @@ export default {
   methods: {
     remove () {
       eventBus.$emit('removeTask', this.taskItem)
+      this.$emit('removeTask', this.taskItem)
     },
     edit () {
       this.isEdited = true
@@ -58,12 +57,12 @@ export default {
       this.isEdited = false
     },
     cancel () {
-      this.isEdited = false
       this.taskItem.content = this.task.content
+      this.isEdited = false
     },
     markCompleted () {
-      this.task.completed = true
       eventBus.$emit('taskStatusChange', this.taskItem)
+      this.$emit('taskStatusChange', this.taskItem)
     }
   }
 }

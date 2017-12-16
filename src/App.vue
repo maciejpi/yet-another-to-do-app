@@ -1,4 +1,5 @@
 <template>
+
   <div id="app">
 
     <form @keyup.prevent.enter="createTask">
@@ -69,7 +70,14 @@ export default {
       })
       this.syncLocalStorage()
     })
-    eventBus.$on('taskStatusChange', task => this.syncLocalStorage())
+    eventBus.$on('taskStatusChange', task => {
+      this.tasks.map(item => {
+        if (item.id === task.id) {
+          item.completed = task.completed
+        }
+      })
+      this.syncLocalStorage()
+    })
   }
 }
 </script>

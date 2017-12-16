@@ -2,10 +2,10 @@
   <div class="tasks-list">
 
     <input type="checkbox"
-           name="markCompleted"
-           :checked="this.taskItem.completed"
-           @change="markUncompleted">
-    <label for="markCompleted"
+           name="markUncompleted"
+           v-model="taskItem.completed"
+           @change="undoTask">
+    <label for="markUncompleted"
            class="strike">{{ taskItem.content }}</label>
 
     <span>{{ taskItem.id | toDate }}</span>
@@ -32,10 +32,11 @@ export default {
   methods: {
     remove () {
       eventBus.$emit('removeTask', this.taskItem)
+      this.$emit('removeTask', this.taskItem)
     },
-    markUncompleted () {
-      this.task.completed = false
+    undoTask () {
       eventBus.$emit('taskStatusChange', this.taskItem)
+      this.$emit('taskStatusChange', this.taskItem)
     }
   }
 }

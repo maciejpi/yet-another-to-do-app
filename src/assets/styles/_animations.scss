@@ -8,26 +8,27 @@
 }
 
 .fade-enter-active {
-  transition: opacity 0.4s ease;
+  transition: opacity 0.25s ease;
 }
 
-.slide-leave-active {
-  animation: slide-out 0.75s ease-out forwards;
-  transition: opacity 0.75s;
+.rotate-leave-active {
+  animation: rotate 0.4s ease-out forwards;
+  transition: opacity 0.6s;
   opacity: 0;
   position: absolute;
 }
 
-.slide-move {
-  transition: transform 0.75s;
+.rotate-move {
+  transition: transform 0.25s;
+  transition-delay: 0.35s;
 }
 
-@keyframes slide-out {
+@keyframes rotate {
   from {
-    transform: translateY(0);
+    transform: rotateX(0deg);
   }
 
   to {
-    transform: translateY(-20px);
+    transform: rotateX(180deg);
   }
 }
