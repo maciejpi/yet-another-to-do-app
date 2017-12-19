@@ -75,7 +75,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunksSortMode: 'dependency'
     }),
     new GoogleFontsPlugin({
-      fonts: [{ family: 'Roboto', variants: ['400'] }]
+      fonts: [{ family: 'Roboto', variants: ['300', '400'] }]
     }),
     // keep module.id stable when vender modules does not change
     new webpack.HashedModuleIdsPlugin(),

@@ -1,24 +1,31 @@
 <template>
-  <div class="tasks-list">
+  <li class="task-item-wrapper">
 
-    <input type="checkbox"
-           name="markUncompleted"
-           v-model="taskItem.completed"
-           @change="undoTask">
-    <label for="markUncompleted"
-           class="strike">{{ taskItem.content }}</label>
+    <task-status :task="task"></task-status>
 
-    <span>{{ taskItem.id | toDate }}</span>
-    <button @click="remove">&#10005;</button>
-  </div>
+    <div class="task-item-inner">
+      <div class="task-content is-done">
+        <p class="task-text strike">{{ taskItem.content }}</p>
+        <p class="created-date">Created on {{ taskItem.id | toDate }}</p>
+      </div>
+
+      <button @click="remove"
+              class="btn-secondary">Delete</button>
+
+    </div>
+  </li>
 </template>
 
 <script>
 import { eventBus } from '../main'
+import TaskStatus from './TaskStatus.vue'
 
 export default {
   name: 'DoneItem',
   props: ['task'],
+  components: {
+    TaskStatus
+  },
   data () {
     return {
       isEdited: false,
@@ -32,11 +39,6 @@ export default {
   methods: {
     remove () {
       eventBus.$emit('removeTask', this.taskItem)
-      this.$emit('removeTask', this.taskItem)
-    },
-    undoTask () {
-      eventBus.$emit('taskStatusChange', this.taskItem)
-      this.$emit('taskStatusChange', this.taskItem)
     }
   }
 }

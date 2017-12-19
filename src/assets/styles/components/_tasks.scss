@@ -1,0 +1,62 @@
+.tasks-list {
+  margin-top: $spacing * 3;
+}
+
+.tasks-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: $btn-sm-height;
+}
+
+.task-item-wrapper {
+  display: flex;
+  padding: $spacing * 2;
+  margin-top: $spacing * 1.5;
+  background-color: $white;
+  border: $border-light;
+  box-shadow: 1px 1px 2px 0 rgba($grey-light, 1);
+}
+
+.task-item-inner {
+  display: flex;
+}
+
+.task-content {
+  width: $task-text-width;
+  height: $text-input-height;
+  margin: 0 $spacing * 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &.is-edited {
+    margin-left: $spacing * 2;
+    width: $task-text-width + $spacing;
+  }
+  &.is-done {
+    width: $task-text-width + $btn-sm-width + $spacing;
+  }
+}
+
+.task-text {
+  width: 370px;
+  margin-right: $spacing * 3;
+}
+
+.strike {
+  text-decoration: line-through;
+  color: $text-secondary;
+}
+
+.created-date {
+  font-size: 14px;
+  color: $text-secondary;
+  width: 160px;
+}
+
+.controls {
+  width: $btn-sm-width * 2 + $spacing;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,29 @@
+.main-nav {
+  text-align: center;
+  margin-top: $spacing-large;
+
+  li {
+    display: inline-block;
+    &:first-of-type {
+        margin-right: $spacing;
+    }
+    &:last-of-type {
+      margin-left: $spacing;
+    }
+  }
+}
+
+.nav-link {
+  text-transform: uppercase;
+  color: $text-secondary;
+  cursor: pointer;
+  font-weight: 400;
+  padding: {
+    right: $spacing * 1.5;
+    bottom: $spacing / 2;
+    left: $spacing * 1.5;
+  }
+  &.router-link-active {
+    border-bottom: 2px solid $action-cl;
+  }
+}

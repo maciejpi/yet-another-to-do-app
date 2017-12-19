@@ -1,17 +1,20 @@
 <template>
   <div class="tasks-list">
 
-    <div>{{ !tasksList.length ? 'You haven\'t completed any tasks yet' : `${tasksList.length} task${tasksList.length === 1 ? '' : 's' } done` }}</div>
-    <button @click="deleteAll">Delete all</button>
+    <div class="tasks-list-header">
+      <p>{{ !tasksList.length ? 'You haven\'t completed any tasks yet.' : `${tasksList.length} task${tasksList.length === 1 ? '' : 's' } done.` }}</p>
+      <button v-if="tasksList.length >=2"
+              @click="deleteAll"
+              class="btn-secondary large">Delete all</button>
+    </div>
 
     <transition-group tag="ul"
-                      :name="transition">
+                      :name="animation">
       <done-item v-for="task in tasksList"
                  :key="task.id"
-                 @taskStatusChange="moveTaskTransition"
-                 @removeTask="cancelTransition"
                  :task="task"></done-item>
     </transition-group>
+
   </div>
 </template>
 
@@ -24,7 +27,7 @@ export default {
   props: ['tasks'],
   data () {
     return {
-      transition: ''
+      animation: ''
     }
   },
   components: {
@@ -35,18 +38,20 @@ export default {
       this.tasksList.map(item => {
         eventBus.$emit('removeTask', item)
       })
-    },
-    moveTaskTransition () {
-      this.transition = 'rotate'
-    },
-    cancelTransition () {
-      this.transition = ''
     }
   },
   computed: {
     tasksList () {
       return this.tasks.filter(item => item.completed)
     }
+  },
+  created () {
+    eventBus.$on('taskStatusChange', task => {
+      this.animation = 'rotate'
+    })
+    eventBus.$on('removeTask', task => {
+      this.animation = ''
+    })
   }
 }
 </script>

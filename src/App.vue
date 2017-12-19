@@ -1,20 +1,41 @@
 <template>
+  <div id="app"
+       class="wrapper">
 
-  <div id="app">
+    <h1 class="title">Yet another to-do app</h1>
 
-    <form @keyup.prevent.enter="createTask">
-      <input type="text"
-             v-model="newTask">
-      <button :disabled="this.newTask === ''"
-              @click.prevent="createTask">Create</button>
+    <form @keyup.prevent.enter="createTask"
+          class="new-task">
+      <p>New task</p>
+      <div class="new-task-inner">
+        <input type="text"
+               v-model="newTask"
+               class="text-input">
+        <button :disabled="this.newTask === ''"
+                @click.prevent="createTask"
+                class="btn-primary">Create</button>
+      </div>
     </form>
 
     <nav>
-      <ul>
-        <router-link tag="li"
-                     :to="{ name: 'todoList' }">ToDo</router-link>
-        <router-link tag="li"
-                     :to="{ name: 'doneList' }">Done</router-link>
+      <ul class="main-nav">
+        <li>
+          <a href="#">
+            <router-link tag="h2"
+                         :to="{ name: 'todoList' }"
+                         class="nav-link">To-Do
+            </router-link>
+          </a>
+        </li>
+
+        <li>
+          <a href="#">
+            <router-link tag="h2"
+                         :to="{ name: 'doneList' }"
+                         class="nav-link">Done
+            </router-link>
+          </a>
+        </li>
       </ul>
     </nav>
 

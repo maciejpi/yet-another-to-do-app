@@ -1,0 +1,47 @@
+.btn-primary,
+.btn-secondary {
+  border-radius: 2px;
+  cursor: pointer;
+  font-family: $app-font;
+}
+
+.btn-primary {
+  border: 0;
+  padding: {
+    left: $spacing * 3;
+    right: $spacing * 3;
+  }
+  &:not(:disabled) {
+    background-color: $action-cl;
+    color: $white;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    background-color: $grey-medium;
+    color: lighten($grey-medium, 15%);
+  }
+  &.small {
+    width: $btn-sm-width;
+    height: $btn-sm-height;
+    padding: {
+      left: $spacing * 2;
+      right: $spacing * 2;
+    }
+  }
+  &:hover:not(:disabled) {
+    background-color: darken($action-cl, 5%);
+  }
+}
+
+.btn-secondary {
+  background-color: $white;
+  border: $border-dark;
+  width: $btn-sm-width;
+  height: $btn-sm-height;
+  &.large {
+    width: $btn-sm-width * 1.5;
+  }
+  &:hover {
+    background-color: darken($white, 5%);
+  }
+}

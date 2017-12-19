@@ -1,21 +1,23 @@
 <template>
   <div class="tasks-list">
 
-    <div>{{ !tasksList.length ? 'You have no tasks to do' : `You have ${tasksList.length} task${tasksList.length === 1 ? '' : 's' } to do` }}</div>
+    <div class="tasks-list-header">
+      <p>{{ !tasksList.length ? 'You have no tasks to do.' : `You have ${tasksList.length} task${tasksList.length === 1 ? '' : 's' } to do.` }}</p>
+    </div>
 
     <transition-group tag="ul"
-                      :name="transition">
+                      :name="animation">
       <to-do-item v-for="task in tasksList"
                   :key="task.id"
-                  @taskStatusChange="moveTaskTransition"
-                  @removeTask="cancelTransition"
                   :task="task"></to-do-item>
     </transition-group>
+
   </div>
 </template>
 
 <script>
 import ToDoItem from './ToDoItem.vue'
+import { eventBus } from '../main'
 
 export default {
   name: 'ToDoList',
@@ -25,21 +27,21 @@ export default {
   },
   data () {
     return {
-      transition: ''
-    }
-  },
-  methods: {
-    moveTaskTransition () {
-      this.transition = 'rotate'
-    },
-    cancelTransition () {
-      this.transition = ''
+      animation: ''
     }
   },
   computed: {
     tasksList () {
       return this.tasks.filter(item => !item.completed)
     }
+  },
+  created () {
+    eventBus.$on('taskStatusChange', task => {
+      this.animation = 'rotate'
+    })
+    eventBus.$on('removeTask', task => {
+      this.animation = ''
+    })
   }
 }
 </script>

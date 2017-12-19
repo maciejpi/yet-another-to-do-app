@@ -1,39 +1,58 @@
 <template>
-  <li>
-    <div v-if="isEdited">
-      <div @keyup.enter="save"
-           @keyup.esc="cancel">
+  <li class="task-item-wrapper">
+    <!-- <div class="task-item"> -->
+
+    <task-status :task="taskItem"></task-status>
+
+    <div v-if="isEdited"
+         @keyup.enter="save"
+         @keyup.esc="cancel"
+         class="task-item-inner">
+
+      <div class="task-content is-edited">
         <input type="text"
                v-model.lazy="taskItem.content"
                autofocus
-               v-focus>
-        <button @click="save">Save</button>
-        <button @click="cancel">Cancel</button>
+               v-focus
+               class="text-input">
+      </div>
+      <div class="controls">
+        <button @click="save"
+                class="btn-primary small">Save</button>
+        <button @click="cancel"
+                class="btn-secondary">Cancel</button>
       </div>
     </div>
 
-    <div v-else>
-      <input type="checkbox"
-             name="markCompleted"
-             v-model="taskItem.completed"
-             @change="markCompleted">
-      <label for="markCompleted"
-             @dblclick="edit">{{ taskItem.content }}</label>
-      <button @click="edit">Edit</button>
+    <div v-else
+         class="task-item-inner">
+      <div class="task-content">
+        <p @dblclick="edit"
+           class="task-text">{{ taskItem.content }}</p>
+        <p class="created-date">Created on {{ taskItem.id | toDate }}</p>
+      </div>
+      <div class="controls">
+        <button @click="edit"
+                class="btn-secondary">Edit</button>
+        <button @click="remove"
+                class="btn-secondary">Delete</button>
+      </div>
     </div>
-
-    <span>{{ taskItem.id | toDate }}</span>
-    <button @click="remove">&#10005;</button>
+    <!-- </div> -->
 
   </li>
 </template>
 
 <script>
 import { eventBus } from '../main'
+import TaskStatus from './TaskStatus.vue'
 
 export default {
   name: 'ToDoItem',
   props: ['task'],
+  components: {
+    TaskStatus
+  },
   data () {
     return {
       isEdited: false,
@@ -47,7 +66,6 @@ export default {
   methods: {
     remove () {
       eventBus.$emit('removeTask', this.taskItem)
-      this.$emit('removeTask', this.taskItem)
     },
     edit () {
       this.isEdited = true
@@ -59,10 +77,6 @@ export default {
     cancel () {
       this.taskItem.content = this.task.content
       this.isEdited = false
-    },
-    markCompleted () {
-      eventBus.$emit('taskStatusChange', this.taskItem)
-      this.$emit('taskStatusChange', this.taskItem)
     }
   }
 }

@@ -1,0 +1,34 @@
+.title {
+  margin-top: $spacing-large;
+  text-align: center;
+};
+
+.new-task {
+  margin-top: $spacing-large;
+  background-color: $new-task-bg;
+  border: $border-dark, {
+    radius: 2px;
+  }
+  padding: $spacing * 4, {
+    top: $spacing * 3;
+  }
+}
+
+.new-task-inner {
+  width: 100%;
+  margin-top: $spacing;
+  display: flex;
+  justify-content: space-between;
+
+  input {
+    margin-right: $spacing;
+  }
+}
+
+.text-input {
+  width: 100%;
+  height: $text-input-height;
+  padding-left: $spacing;
+  font-family: $app-font;
+  border: $border-dark;
+}

@@ -1,0 +1,28 @@
+.completed-state {
+  display: flex;
+  align-items: center;
+
+  input {
+    appearance: none;
+    width: $checkbox-width;
+    height: $checkbox-width;
+    position: relative;
+    cursor: pointer;
+    border: $border-dark, {
+      radius: 50%;
+    }
+    &:checked {
+      background-color: $done-cl;
+    }
+    &:not(:checked) {
+      &::after {
+        content: '✔';
+        color: $grey-light;
+        position: absolute;
+        top: 3px;
+        left: 6px;
+        font-size: 15px;
+      }
+    }
+  }
+}

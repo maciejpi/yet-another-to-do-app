@@ -1,0 +1,14 @@
+html, body {
+  background-color: $page-bg;
+}
+
+* {
+  margin: 0;
+}
+
+.wrapper {
+  width: 830px;
+  margin: 0 auto, {
+    bottom: $spacing-large * 2;
+  }
+}
