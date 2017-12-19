@@ -1,6 +1,5 @@
 <template>
   <li class="task-item-wrapper">
-    <!-- <div class="task-item"> -->
 
     <task-status :task="taskItem"></task-status>
 
@@ -38,7 +37,6 @@
                 class="btn-secondary">Delete</button>
       </div>
     </div>
-    <!-- </div> -->
 
   </li>
 </template>

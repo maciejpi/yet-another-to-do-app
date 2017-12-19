@@ -11,8 +11,8 @@
 
       <button @click="remove"
               class="btn-secondary">Delete</button>
-
     </div>
+
   </li>
 </template>
 
