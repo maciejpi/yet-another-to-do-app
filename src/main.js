@@ -6,6 +6,9 @@ import router from './router'
 import './helpers/filters'
 import './helpers/directives'
 
+import 'normalize.css'
+import './assets/styles/main.scss'
+
 Vue.config.productionTip = false
 
 export const eventBus = new Vue()

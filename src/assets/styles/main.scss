@@ -1,12 +1,10 @@
-@import 'normalize';
+@import 'variables';
+@import 'animations';
+@import 'typography';
+@import 'buttons';
+@import 'structure';
 
-@import "variables";
-@import "animations";
-@import "typography";
-@import "buttons";
-@import "structure";
-
-@import "components/checkbox";
-@import "components/main-nav";
-@import "components/new-task";
-@import "components/tasks";
+@import 'components/checkbox';
+@import 'components/main-nav';
+@import 'components/new-task';
+@import 'components/tasks';

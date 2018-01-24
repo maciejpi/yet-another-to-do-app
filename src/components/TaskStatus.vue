@@ -1,7 +1,6 @@
 <template>
   <div class="completed-state">
     <input type="checkbox"
-           id="status-change"
            @change="statusChange"
            v-model="task.completed">
   </div>
