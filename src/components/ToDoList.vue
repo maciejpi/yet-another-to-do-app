@@ -2,7 +2,7 @@
   <div class="tasks-list">
 
     <div class="tasks-list-header">
-      <p>{{ !tasksList.length ? 'You have no tasks to do.' : `You have ${tasksList.length} task${tasksList.length === 1 ? '' : 's' } to do.` }}</p>
+      <p>{{ tasksCountInfo }}</p>
     </div>
 
     <transition-group tag="ul"
@@ -33,6 +33,13 @@ export default {
   computed: {
     tasksList () {
       return this.tasks.filter(item => !item.completed)
+    },
+    tasksCountInfo () {
+      return !this.tasksList.length
+        ? 'You have no tasks to do.'
+        : `You have ${this.tasksList.length} task${
+            this.tasksList.length === 1 ? '' : 's'
+          } to do.`
     }
   },
   created () {

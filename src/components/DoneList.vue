@@ -2,7 +2,7 @@
   <div class="tasks-list">
 
     <div class="tasks-list-header">
-      <p>{{ !tasksList.length ? 'You haven\'t completed any tasks yet.' : `${tasksList.length} task${tasksList.length === 1 ? '' : 's' } done.` }}</p>
+      <p>{{ tasksCountInfo }}</p>
       <button v-if="tasksList.length >=2"
               @click="deleteAll"
               class="btn-secondary large">Delete all</button>
@@ -43,6 +43,13 @@ export default {
   computed: {
     tasksList () {
       return this.tasks.filter(item => item.completed)
+    },
+    tasksCountInfo () {
+      return !this.tasksList.length
+        ? "You haven't completed any tasks yet."
+        : `${this.tasksList.length} task${
+            this.tasksList.length === 1 ? '' : 's'
+          } done.`
     }
   },
   created () {
