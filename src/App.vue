@@ -17,27 +17,7 @@
       </div>
     </form>
 
-    <nav>
-      <ul class="main-nav">
-        <li>
-          <a href="#">
-            <router-link tag="h2"
-                         :to="{ name: 'todoList' }"
-                         class="nav-link">To-Do
-            </router-link>
-          </a>
-        </li>
-
-        <li>
-          <a href="#">
-            <router-link tag="h2"
-                         :to="{ name: 'doneList' }"
-                         class="nav-link">Done
-            </router-link>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <navigation></navigation>
 
     <transition name="fade"
                 mode="out-in">
@@ -49,10 +29,13 @@
 
 <script>
 import { eventBus } from './main'
+import navigation from './components/navigation.vue'
 
 export default {
   name: 'app',
-
+  components: {
+    navigation
+  },
   data () {
     return {
       newTask: '',
@@ -69,9 +52,10 @@ export default {
         })
         this.newTask = ''
         this.syncLocalStorage()
-        if (this.$route.name !== 'todoList') {
+        return (
+          this.$route.name !== 'todoList' &&
           this.$router.push({ name: 'todoList' })
-        }
+        )
       }
     },
     syncLocalStorage () {

@@ -9,38 +9,30 @@
         <p class="created-date">Created on {{ taskItem.id | toDate }}</p>
       </div>
 
-      <button @click="remove"
-              class="btn-secondary">Delete</button>
+      <remove-button :task="task"></remove-button>
     </div>
 
   </li>
 </template>
 
 <script>
-import { eventBus } from '../main'
 import TaskStatus from './TaskStatus.vue'
+import RemoveButton from './RemoveButton.vue'
 
 export default {
   name: 'DoneItem',
   props: ['task'],
   components: {
-    TaskStatus
+    TaskStatus,
+    RemoveButton
   },
   data () {
     return {
-      isEdited: false,
       taskItem: {
         id: this.task.id,
-        content: this.task.content,
-        completed: this.task.completed
+        content: this.task.content
       }
-    }
-  },
-  methods: {
-    remove () {
-      eventBus.$emit('removeTask', this.taskItem)
     }
   }
 }
 </script>
-

@@ -17,18 +17,14 @@
 
 <script>
 import ToDoItem from './ToDoItem.vue'
-import { eventBus } from '../main'
+import { taskStateAnimation } from '../helpers/mixins'
 
 export default {
   name: 'ToDoList',
+  mixins: [taskStateAnimation],
   props: ['tasks'],
   components: {
     ToDoItem
-  },
-  data () {
-    return {
-      animation: ''
-    }
   },
   computed: {
     tasksList () {
@@ -41,14 +37,6 @@ export default {
             this.tasksList.length === 1 ? '' : 's'
           } to do.`
     }
-  },
-  created () {
-    eventBus.$on('taskStatusChange', task => {
-      this.animation = 'rotate'
-    })
-    eventBus.$on('removeTask', task => {
-      this.animation = ''
-    })
   }
 }
 </script>

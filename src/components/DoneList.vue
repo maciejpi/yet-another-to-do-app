@@ -21,23 +21,18 @@
 <script>
 import DoneItem from './DoneItem.vue'
 import { eventBus } from '../main'
+import { taskStateAnimation } from '../helpers/mixins'
 
 export default {
   name: 'DoneList',
+  mixins: [taskStateAnimation],
   props: ['tasks'],
-  data () {
-    return {
-      animation: ''
-    }
-  },
   components: {
     DoneItem
   },
   methods: {
     deleteAll () {
-      this.tasksList.map(item => {
-        eventBus.$emit('removeTask', item)
-      })
+      this.tasksList.map(item => eventBus.$emit('removeTask', item))
     }
   },
   computed: {
@@ -51,14 +46,6 @@ export default {
             this.tasksList.length === 1 ? '' : 's'
           } done.`
     }
-  },
-  created () {
-    eventBus.$on('taskStatusChange', task => {
-      this.animation = 'rotate'
-    })
-    eventBus.$on('removeTask', task => {
-      this.animation = ''
-    })
   }
 }
 </script>
